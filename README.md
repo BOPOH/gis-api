@@ -18,6 +18,8 @@ Install sources:
 $ php composer.phar install
 ```
 
+Sets up service config (`config/config.php`)
+
 Install [SphinxSearch](http://sphinxsearch.com/docs/current.html#installing-debian):
 ```sh
 $ sudo apt-get install mysql-client unixodbc libpq5
@@ -60,11 +62,11 @@ $ wget https://github.com/swagger-api/swagger-ui/archive/master.zip
 $ unzip master.zip
 $ mv swagger-ui-master/dist/* ../docs
 $ cd ../docs
-$ sed -i 's/url = "http:\/\/petstore.swagger.io\/v2\/swagger.json"/url = "192.168.0.1\/gis-api/docs/swagger.yaml"/g' index.html
-$ sed -i 's/host: "127.0.0.1\/gis-api"/host: "192.168.0.1\/gis-api"/g' swagger.yaml
+$ sed -i 's/url = "http:\/\/petstore.swagger.io\/v2\/swagger.json"/url = "hostname\/gis-api/docs/swagger.yaml"/g' index.html
+$ sed -i 's/host: "127.0.0.1\/gis-api"/host: "hostname\/gis-api"/g' swagger.yaml
 ```
 
-Copy docs to public folder (for example, http://hostname/docs) and try API examples
+Copy docs to public folder (for example, http://hostname/gis-api/docs) and try API examples
 
 License
 ----
