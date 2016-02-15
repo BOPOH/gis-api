@@ -1,0 +1,317 @@
+   swagger: "2.0"
+   info: 
+     version: "1.0.0"
+     title: "Gis API"
+     description: "A sample API that uses a Gis API"
+     termsOfService: "http://helloreverb.com/terms/"
+     contact: 
+       name: "Andrey Bkharev"
+       email: "bopoh-a@yandex.ru"
+       url: "http://swagger.io"
+     license: 
+       name: "MIT"
+       url: "http://opensource.org/licenses/MIT"
+   host: "127.0.0.1/gis-api"
+   schemes: 
+     - "http"
+   consumes: 
+     - "application/json"
+   produces: 
+     - "application/json"
+   definitions: 
+     Rubric:
+       type: "object"
+       properties:
+         id:
+           format: "int64"
+           type: "integer"
+         name:
+           type: "string"
+         parent:
+           $ref: "#/definitions/Company"
+         children:
+           type: "array"
+           items:
+             type: "Rubric"
+     Building:
+       type: "object"
+       properties:
+         id:
+           format: "int64"
+           type: "integer"
+         street:
+           type: "string"
+         building:
+           type: "string"
+     Company:
+       type: "object"
+       properties:
+         id:
+           format: "int64"
+           type: "integer"
+         name:
+           type: "string"
+         phoneList:
+           type: "array"
+           items:
+             type: "string"
+   paths: 
+     /company/{id}: 
+       get: 
+         tags: 
+           - "Company"
+         summary: "Find company by ID"
+         description: "gets company info"
+         operationId: "getCompany"
+         produces: 
+           - "json"
+         parameters: 
+           - 
+             name: "id"
+             in: "path"
+             description: "company id"
+             required: true
+             type: "integer"
+         responses: 
+           200: 
+             description: "successful operation"
+             schema:
+               $ref: "#/definitions/Company"
+           default: 
+             description: "unexpected error"
+     /company/by-name/{name}: 
+       get: 
+         tags: 
+           - "Company"
+         summary: "Find companies by name"
+         description: "gets company info"
+         operationId: "getCompanyByName"
+         produces: 
+           - "json"
+         parameters: 
+           - 
+             name: "name"
+             in: "path"
+             description: "company name"
+             required: true
+             type: "string"
+         responses: 
+           200: 
+             description: "successful operation"
+             schema:
+               type: "array"
+               items:
+                 $ref: "#/definitions/Company"
+           default: 
+             description: "unexpected error"
+     /company/by-ids: 
+       get: 
+         tags: 
+           - "Company"
+         summary: "Find companies by id list"
+         description: "gets company list info"
+         operationId: "getCompanyByIds"
+         produces: 
+           - "json"
+         parameters: 
+           - 
+             name: "ids"
+             in: "query"
+             description: "company ids"
+             required: true
+             type: "array"
+             items:
+                type: "integer"
+         responses: 
+           200: 
+             description: "successful operation"
+             schema:
+               type: "array"
+               items:
+                 $ref: "#/definitions/Company"
+           default: 
+             description: "unexpected error"
+     /company/by-area: 
+       get: 
+         tags: 
+           - "Company"
+         summary: "Find companies by area"
+         description: "gets company list in the buildings in the given area"
+         operationId: "getCompanyListByArea"
+         produces: 
+           - "json"
+         parameters: 
+           - 
+             name: "radius"
+             in: "query"
+             description: "area radius"
+             required: true
+             type: "number"
+           - 
+             name: "latitude"
+             in: "query"
+             description: "area latitude"
+             required: true
+             type: "number"
+           - 
+             name: "longitude"
+             in: "query"
+             description: "area longitude"
+             required: true
+             type: "number"
+         responses: 
+           200: 
+             description: "successful operation"
+             schema:
+               type: "array"
+               items:
+                 $ref: "#/definitions/Company"
+           default: 
+             description: "unexpected error"
+     /company/by-buildings: 
+       get: 
+         tags: 
+           - "Company"
+         summary: "Find companies by buildings IDs"
+         description: "gets company list by buildings"
+         operationId: "getCompanyListByBuildingList"
+         produces: 
+           - "json"
+         parameters: 
+           - 
+             name: "ids"
+             in: "query"
+             description: "building id"
+             required: true
+             type: "array"
+             items:
+                type: "integer"
+         responses: 
+           200: 
+             description: "successful operation"
+             schema:
+               type: "array"
+               items:
+                 $ref: "#/definitions/Company"
+           default: 
+             description: "unexpected error"
+     /company/by-rubrics: 
+       get: 
+         tags: 
+           - "Company"
+         summary: "Find companies by rubrics IDs"
+         description: "gets company by rubrics"
+         operationId: "getCompanyListByRubricList"
+         produces: 
+           - "json"
+         parameters: 
+           - 
+             name: "ids"
+             in: "query"
+             description: "rubric ids"
+             required: true
+             type: "array"
+             items:
+                type: "integer"
+         responses: 
+           200: 
+             description: "successful operation"
+             schema:
+               type: "array"
+               items:
+                 $ref: "#/definitions/Company"
+           default: 
+             description: "unexpected error"
+     /rubric/list: 
+       get: 
+         tags: 
+           - "Rubric"
+         summary: "Get rubric list"
+         description: "gets rubric list info. If `name` param is specified, filters list with the given name"
+         operationId: "getRubricList"
+         produces: 
+           - "json"
+         parameters: 
+           - 
+             name: "name"
+             in: "query"
+             description: "rubric name"
+             required: false
+             type: "string"
+         responses: 
+           200: 
+             description: "successful operation"
+             schema:
+               type: "array"
+               items:
+                 $ref: "#/definitions/Rubric"
+           default: 
+             description: "unexpected error"
+     /rubric/{id}/company-list: 
+       get: 
+         tags: 
+           - "Rubric"
+         summary: "Find companies by given rubric's ID"
+         description: "gets companies by given rubric"
+         operationId: "getCompanyByRubric"
+         produces: 
+           - "json"
+         parameters: 
+           - 
+             name: "id"
+             in: "path"
+             description: "rubric id"
+             required: true
+             type: "integer"
+         responses: 
+           200: 
+             description: "successful operation"
+             schema:
+               type: "array"
+               items:
+                 $ref: "#/definitions/Company"
+           default: 
+             description: "unexpected error"
+     /building/{id}/company-list: 
+       get: 
+         tags: 
+           - "Building"
+         summary: "Find companies by given buildings's ID"
+         description: "gets company list in the given building"
+         operationId: "getCompanyListByBuilding"
+         produces: 
+           - "json"
+         parameters: 
+           - 
+             name: "id"
+             in: "path"
+             description: "building id"
+             required: true
+             type: "integer"
+         responses: 
+           200: 
+             description: "successful operation"
+             schema:
+               type: "array"
+               items:
+                 $ref: "#/definitions/Company"
+           default: 
+             description: "unexpected error"
+     /building/list: 
+       get: 
+         tags: 
+           - "Building"
+         summary: "Get buildings list"
+         description: "gets builfing info"
+         operationId: "getBuildingList"
+         produces: 
+           - "json"
+         responses: 
+           200: 
+             description: "successful operation"
+             schema:
+               type: "array"
+               items:
+                 $ref: "#/definitions/Building"
+           default: 
+             description: "unexpected error"
