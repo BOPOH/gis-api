@@ -118,3 +118,10 @@ VALUES
   (9, 9),
   (10, 9),
   (11, 3);
+
+INSERT INTO `t_company_phones`
+  (`f_company_id`, `f_phone`)
+VALUES
+  (1, '123-123-12-23'),
+  (1, '123-123-32-21'),
+  (3, '222-333-44-55');
