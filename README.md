@@ -58,13 +58,13 @@ $ mkdir swagger
 $ cd swagger
 $ wget https://github.com/swagger-api/swagger-ui/archive/master.zip
 $ unzip master.zip
-$ mv dist/* ../docs
+$ mv swagger-ui-master/dist/* ../docs
 $ cd ../docs
-$ sed -i 's/url = "http:\/\/petstore.swagger.io\/v2\/swagger.json"/url = "swagger.yaml"/g' new.html
-$ sed -i 's/host: "127.0.0.1\/gis-api"/host: "192.168.0.1\/gis-api"/g' new.html
+$ sed -i 's/url = "http:\/\/petstore.swagger.io\/v2\/swagger.json"/url = "192.168.0.1\/gis-api/docs/swagger.yaml"/g' index.html
+$ sed -i 's/host: "127.0.0.1\/gis-api"/host: "192.168.0.1\/gis-api"/g' swagger.yaml
 ```
 
-Open docs (http://hostname/docs) and try API examples
+Copy docs to public folder (for example, http://hostname/docs) and try API examples
 
 License
 ----
