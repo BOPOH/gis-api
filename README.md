@@ -7,6 +7,13 @@ Small exmample of the rest-api app.
 
 ### Installation
 
+Needs:
+    - ubuntu 14.04
+    - php >=5.5
+    - mysql >= 5.5
+    - apache2 (see site config example in `install/configs/apache-site.conf`)
+    - apache rewrite module (`a2enmod rewrite`)
+
 Install [composer](https://getcomposer.org/download/):
 
 ```sh
@@ -23,6 +30,7 @@ Sets up service config (`config/config.php`)
 Install [SphinxSearch](http://sphinxsearch.com/docs/current.html#installing-debian):
 ```sh
 $ sudo apt-get install mysql-client unixodbc libpq5
+$ sudo apt-get install python-software-properties
 $ sudo add-apt-repository ppa:builds/sphinxsearch-rel22
 $ sudo apt-get update
 $ sudo apt-get install sphinxsearch
@@ -62,8 +70,8 @@ $ wget https://github.com/swagger-api/swagger-ui/archive/master.zip
 $ unzip master.zip
 $ mv swagger-ui-master/dist/* ../docs
 $ cd ../docs
-$ sed -i 's/url = "http:\/\/petstore.swagger.io\/v2\/swagger.json"/url = "hostname\/gis-api/docs/swagger.yaml"/g' index.html
-$ sed -i 's/host: "127.0.0.1\/gis-api"/host: "hostname\/gis-api"/g' swagger.yaml
+$ sed -i 's/url = "http:\/\/petstore.swagger.io\/v2\/swagger.json"/url = "HOSTNAME\/gis-api/docs/swagger.yaml"/g' index.html
+$ sed -i 's/host: "127.0.0.1\/gis-api"/host: "HOSTNAME\/gis-api"/g' swagger.yaml
 ```
 
 Copy docs to public folder (for example, http://hostname/gis-api/docs) and try API examples
